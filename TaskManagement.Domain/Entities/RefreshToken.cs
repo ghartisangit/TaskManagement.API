@@ -30,7 +30,7 @@ public class RefreshToken: BaseEntity
         if(string.IsNullOrWhiteSpace(token))
             throw new ArgumentNullException(nameof(token));
 
-        if(ExpiresAt <= DateTime.UtcNow)
+        if(expiresAt <= DateTime.UtcNow)
             throw new ArgumentException("ExpiresAt must be in the future", nameof(expiresAt));
 
         if(string.IsNullOrWhiteSpace(createdByIp))

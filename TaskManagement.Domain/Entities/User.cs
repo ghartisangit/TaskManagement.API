@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
 using TaskManagement.Domain.Common;
 using TaskManagement.Domain.Enums;
@@ -11,51 +12,53 @@ public class User: BaseEntity
 {
     public string Name { get; private set; } = default!;
     public string Email { get; private set; } = default!;
-    public string Password { get; private set; } = default!;
+    public string PasswordHash { get; private set; } = default!;
     public Role Role { get; private set; }
+    
     public ICollection<TaskItem> ManagedTask { get; private set; } = new List<TaskItem>();
     public ICollection<TaskItem> AssignedTask { get; private set; } = new List<TaskItem>();
+    public ICollection<RefreshToken> RefreshTokens { get; private set; } = new List<RefreshToken>();
 
 
     private User() { }
 
     public User(string name, string email, string password, Role role)
     {
-        Validate(name, email, password, role);
+        Validate(name, email, role);
         Name = name;
         Email = email;
-        Password = password;
+        PasswordHash = password;
         Role = role;
     }
 
-    public void Update(string name, string email, string password, Role role)
+    public void Update(string name, string email, Role role)
     {
-        Validate(name, email, password, role);
+        Validate(name, email,  role);
         Name = name;
         Email = email;
-        Password = password;
         Role = role;
         UpdateTimeStamp();
     }
+    public void UpdatePasswordHash(string newPasswordHash)
+    {
+        if (string.IsNullOrWhiteSpace(newPasswordHash))
+            throw new ArgumentNullException(nameof(newPasswordHash));
 
-    public void Validate(string name, string email, string password, Role role)
+        PasswordHash = newPasswordHash;
+        UpdateTimeStamp();
+    }
+
+    public void Validate(string name, string email,Role role)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name));
-        
-        if(string.IsNullOrWhiteSpace(email))
-            throw new ArgumentNullException(nameof(email));
 
-        if(!email.Contains("@") || !email.Contains("."))
+        if(string.IsNullOrWhiteSpace(email) || !email.Contains("@") || !email.Contains("."))
             throw new ArgumentException("Email must be valid", nameof(email));
 
-        if (string.IsNullOrWhiteSpace(password))
-            throw new ArgumentNullException(nameof(password));
 
-        if (password.Length < 6)
-            throw new ArgumentException("Password must be at least 6 characters long", nameof(password));
-        
         if(!Enum.IsDefined(typeof(Role), role))
             throw new ArgumentException("Invalid role", nameof(role));
     }
+
 }

@@ -9,13 +9,22 @@ namespace TaskManagement.Infrastructure.Persistance.Interfaces;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly AppDbContext _context;
+    private readonly ITaskRepository _taskRepository;
+    private readonly IUserRepository _userRepository;
 
-    public UnitOfWork(AppDbContext context)
+    public UnitOfWork(AppDbContext context, ITaskRepository taskRepository, IUserRepository userRepository)
     {
         _context = context;
+        _taskRepository = taskRepository;
+        _userRepository = userRepository;
     }
+
+    public ITaskRepository TaskRepository => _taskRepository;
+
+    public IUserRepository UserRepository => _userRepository;
     public async Task<int> SaveChangesAsync(CancellationToken ct = default)
         => await _context.SaveChangesAsync(ct);
+   
 
     public void Dispose()
         => _context.Dispose();
