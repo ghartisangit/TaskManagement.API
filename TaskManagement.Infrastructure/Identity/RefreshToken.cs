@@ -4,10 +4,11 @@ using System.Net;
 using System.Text;
 using TaskManagement.Domain.Common;
 
-namespace TaskManagement.Domain.Entities;
+namespace TaskManagement.Infrastructure.Identity;
 
-public class RefreshToken: BaseEntity
+public class RefreshToken
 {
+    public Guid Id { get; private set; }
     public string Token { get; private set; } = default!;
     public DateTime ExpiresAt { get; private set; }
 
@@ -20,8 +21,8 @@ public class RefreshToken: BaseEntity
     public bool IsRevoked => RevokedAt != null;
     public bool IsActive => !IsRevoked && !IsExpird;
 
-    public Guid UserId { get; private set; }
-    public User User { get; private set; } = null!;
+   public Guid AppUserId { get; private set; }
+    public AppUser AppUser { get; private set; } = null!;
 
     private RefreshToken() { }
 
@@ -42,7 +43,7 @@ public class RefreshToken: BaseEntity
         Token = token;
         ExpiresAt = expiresAt;
         CreatedByIp = createdByIp;
-        UserId = userId;
+        AppUserId = userId;
     }
 
     public void Revoke(string ipAddress, string? replacedByToken = null)

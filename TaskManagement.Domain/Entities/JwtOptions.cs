@@ -11,15 +11,17 @@ public class JwtOptions
 
     [Required(AllowEmptyStrings =false)]
     [MinLength(32, ErrorMessage = "Key must be at least 32 characters long.")]
-    public string Key { get; set; } = string.Empty;
+    public string Key { get; init; } = string.Empty;
 
     [Required]
-    public string Issuer { get; set; } = string.Empty;
+    public string Issuer { get; init; } = string.Empty;
 
     [Required]
-    public string Audience { get; set; } = string.Empty;
+    public string Audience { get; init; } = string.Empty;
 
     [Required]
     [AllowedValues(1, 1440, ErrorMessage = "AccessTokenExpiryMinutes must be between 1 and 1440.")]
-    public int AccessTokenExpiryMinutes { get; set; }
+    public int AccessTokenExpiryMinutes { get; init; }
+
+    public int RefreshTokenExpiryDays { get; init; } = 7;
 }

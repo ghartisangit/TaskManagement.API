@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TaskManagement.Domain.Entities;
+using TaskManagement.Infrastructure.Identity;
 
 namespace TaskManagement.Infrastructure.Configurations;
 
@@ -21,9 +22,24 @@ public class RefreshTokenConfiguration:IEntityTypeConfiguration<RefreshToken>
            .IsUnique();
 
         builder.Property(r => r.CreatedByIp)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(45);
 
         builder.Property(r => r.ExpiresAt)
             .IsRequired();
+
+        builder.Property(r => r.RevokedByIp)
+            .HasMaxLength(45);
+
+        builder.Property(r => r.ReplacedByToken)
+            .HasMaxLength(500);
+
+        builder.Property(r => r.ExpiresAt)
+            .IsRequired();
+
+        builder.HasOne(r => r.AppUser)
+            .WithMany(u => u.RefreshTokens)
+            .HasForeignKey(r => r.AppUserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

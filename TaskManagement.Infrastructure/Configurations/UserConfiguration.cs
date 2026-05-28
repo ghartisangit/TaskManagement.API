@@ -17,25 +17,9 @@ public class UserConfiguration: IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.Property(u => u.Email)
-            .IsRequired()
-            .HasMaxLength(100);
-
-        builder.HasIndex(u=> u.Email)
-            .IsUnique();
-
-        builder.Property(u => u.PasswordHash)
-            .IsRequired()
-            .HasMaxLength(200);
-
         builder.Property(u => u.Role)
             .IsRequired()
             .HasConversion<string>();
-
-
-        builder.HasMany(u=> u.RefreshTokens)
-            .WithOne(r=> r.User)
-            .HasForeignKey(r=> r.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+       
     }
 }

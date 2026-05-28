@@ -16,8 +16,8 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     }
 
     
-    public DbSet<User> DomainUsers => Set<User>();
-    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();    
+    public DbSet<User> Users => Set<User>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();   
     public DbSet<TaskItem> Tasks => Set<TaskItem>();
 
     protected override void OnModelCreating(ModelBuilder builder)
