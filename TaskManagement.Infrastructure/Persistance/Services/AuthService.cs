@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskManagement.Application.Contracts.Dtos;
+using TaskManagement.Application.Common.Dtos;
 using TaskManagement.Application.Repositories.Interfaces;
 using TaskManagement.Application.Repositories.Services;
 using TaskManagement.Domain.Entities;

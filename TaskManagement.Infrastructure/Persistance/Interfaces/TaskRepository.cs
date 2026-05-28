@@ -17,7 +17,10 @@ public class TaskRepository : Repository<TaskItem>, ITaskRepository
 
     public async Task<PaginatedList<TaskItem>> GetPagedTasksAsync(int pageNumber, int pageSize, CancellationToken ct)
     {
-        var query = _dbSet.AsNoTracking().OrderByDescending(t=> t.DueDate);
+        var query = _dbSet.Include(t => t.CreatedByManager)
+            .Include(t => t.AssignedToDeveloper)
+            .AsNoTracking()
+            .OrderByDescending(t => t.CreatedAt);
 
         var totalCount = await query.CountAsync(ct);
 

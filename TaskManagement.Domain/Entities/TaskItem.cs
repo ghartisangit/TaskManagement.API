@@ -30,10 +30,10 @@ public class TaskItem: BaseEntity
             throw new InvalidOperationException("Only Manager can create a task");
 
         if(string.IsNullOrWhiteSpace(title))
-            throw new ArgumentNullException("title");
+            throw new ArgumentNullException(nameof(title));
 
         if(string.IsNullOrWhiteSpace(description))
-            throw new ArgumentNullException("description");
+            throw new ArgumentNullException(nameof(description));
 
         if(duedate <= DateTime.UtcNow)
             throw new ArgumentException("Due date must be in the future", nameof(duedate));

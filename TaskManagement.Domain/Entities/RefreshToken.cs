@@ -37,7 +37,7 @@ public class RefreshToken: BaseEntity
             throw new ArgumentNullException(nameof(createdByIp));
 
         if(userId == Guid.Empty)
-            throw new ArgumentNullException("User can't be empty",nameof(userId));
+            throw new ArgumentNullException("User can't be empty", nameof(userId));
 
         Token = token;
         ExpiresAt = expiresAt;

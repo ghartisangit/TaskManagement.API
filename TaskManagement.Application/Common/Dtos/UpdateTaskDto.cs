@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TaskManagement.Domain.Enums;
 
 namespace TaskManagement.Application.Common.Dtos;
 
-public record TaskCreateDto(
+public record UpdateTaskDto(
     string Title,
     string Description,
     DateTime DueDate,
-    string? AssignedUserId);
+    string AssignedUserId,
+    TaskStatuss Status);

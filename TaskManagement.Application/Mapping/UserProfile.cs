@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskManagement.Application.Contracts.Dtos;
+using TaskManagement.Application.Common.Dtos;
 using TaskManagement.Domain.Entities;
 
 namespace TaskManagement.Application.Mapping;

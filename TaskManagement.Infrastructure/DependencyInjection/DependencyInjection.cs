@@ -38,6 +38,7 @@ public static class DependencyInjection
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<ITaskRepository, TaskRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITaskService, TaskService>();

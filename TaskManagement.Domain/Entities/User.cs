@@ -48,16 +48,16 @@ public class User: BaseEntity
         UpdateTimeStamp();
     }
 
-    public void Validate(string name, string email,Role role)
+    public static void Validate(string name, string email,Role role)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name));
 
-        if(string.IsNullOrWhiteSpace(email) || !email.Contains("@") || !email.Contains("."))
+        if(string.IsNullOrWhiteSpace(email) || !email.Contains('@') || !email.Contains('.'))
             throw new ArgumentException("Email must be valid", nameof(email));
 
 
-        if(!Enum.IsDefined(typeof(Role), role))
+        if(!Enum.IsDefined<Role>(role))
             throw new ArgumentException("Invalid role", nameof(role));
     }
 

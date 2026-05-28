@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TaskManagement.Domain.Enums;
 
-namespace TaskManagement.Application.Contracts.Dtos;
+namespace TaskManagement.Application.Common.Dtos;
 
 public record UserDto(
     string Id,

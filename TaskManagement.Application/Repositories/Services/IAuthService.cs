@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskManagement.Application.Contracts.Dtos;
+using TaskManagement.Application.Common.Dtos;
 
 namespace TaskManagement.Application.Repositories.Services;
 

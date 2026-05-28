@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskManagement.Application.Contracts.Dtos;
+using TaskManagement.Application.Common.Dtos;
 
 namespace TaskManagement.Application.Validators;
 
@@ -19,10 +19,10 @@ public class TaskCreationValidator: AbstractValidator<TaskCreateDto>
             .MaximumLength(500).WithMessage("Description cannot exceed 500 characters.");
 
         RuleFor(x => x.DueDate)
-            .NotEmpty().WithMessage("Due date is required.")
-            .GreaterThan(DateTime.Now).WithMessage("Due date must be in the future.");
-
+            .NotEmpty().WithMessage("Due date is required.");
+            
         RuleFor(x => x.AssignedUserId)
-            .NotEmpty().WithMessage("Assigned user ID is required.");
+            .Must(id => string.IsNullOrEmpty(id) || Guid.TryParse(id, out _))
+            .WithMessage("Assigned User ID must be a valid GUID.");
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TaskManagement.Application.Contracts.Dtos;
+namespace TaskManagement.Application.Common.Dtos;
 
 public record AuthResponseDto(
     string AccessToken,
