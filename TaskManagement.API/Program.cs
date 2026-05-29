@@ -20,6 +20,7 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
+await app.Services.SeedDatabaseAsync();
 
 if (app.Environment.IsDevelopment())
 {

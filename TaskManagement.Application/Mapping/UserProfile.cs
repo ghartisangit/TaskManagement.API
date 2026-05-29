@@ -14,7 +14,6 @@ public class UserProfile : IRegister
         config.NewConfig<User, UserDto>()
             .Map(dest => dest.Id, src => src.Id)
             .Map(dest => dest.Name, src => src.Name)
-            .Map(dest => dest.Email, src => src.Email)
             .Map(dest => dest.Role, src => src.Role.ToString())
             .Map(dest => dest.CreatedAt, src => src.CreatedAt)
             .Map(dest => dest.UpdatedAt, src => src.UpdatedAt);

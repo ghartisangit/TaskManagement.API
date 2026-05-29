@@ -8,6 +8,6 @@ namespace TaskManagement.Application.Repositories.Interfaces;
 
 public interface IUserRepository:IRepository<User>
 {
-    Task<IReadOnlyList<User>> GetByEmailAsync(string email, CancellationToken ct = default);
+  
     Task<User?> GetUserWithTasksByIdAsync(Guid id, CancellationToken ct = default);
 }

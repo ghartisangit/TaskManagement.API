@@ -20,7 +20,7 @@ public class TaskProfile : IRegister
             .Map(dest => dest.CreatedByUserId, src => src.CreatedByManagerId.ToString())
             .Map(dest => dest.CreatedByUserName, src => src.CreatedByManager.Name)
             .Map(dest => dest.AssignedUserId, src => src.AssignedToDeveloperId)
-            .Map(dest=> dest.AssignedUserName, src => src.AssignedToDeveloper )
+            .Map(dest=> dest.AssignedUserName, src => src.AssignedToDeveloper!=null? src.AssignedToDeveloper.Name : null)
             .Map(dest=> dest.CreatedAt, src => src.CreatedAt)
             .Map(dest => dest.UpdatedAt, src => src.UpdatedAt);
     }

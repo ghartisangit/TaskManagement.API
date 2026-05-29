@@ -4,6 +4,7 @@ using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using TaskManagement.Application.Common.Dtos;
 using TaskManagement.Application.Mapping;
@@ -25,6 +26,10 @@ public static  class DependencyInjection
 
         services.AddScoped<IMapper, ServiceMapper>();
 
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        });
 
         return services;
     }

@@ -74,13 +74,19 @@ public class TaskService : ITaskService
         return _mapper.Map<TaskResponseDto>(task);
     }
 
-    public async Task<bool> DeleteTaskAsync(Guid id, CancellationToken ct)
+    public async Task<bool> DeleteTaskAsync(Guid id, Guid currentUserId, CancellationToken ct)
     {
         var task = await _uow.TaskRepository.GetByIdAsync(id, ct);
         if (task == null)
         {
             _logger.LogWarning("Task with ID {TaskId} not found for deletion.", id);
             throw new NotFoundException(nameof(TaskItem), id);
+        }
+
+        if(task.CreatedByManagerId != currentUserId)
+        {
+            _logger.LogWarning("Unauthorized deletion attempt: User {UserId} tried to delete task {TaskId} created by {CreatorId}.", currentUserId, id, task.CreatedByManagerId);
+            throw new UnauthorizedAccessException("You are not authorized to delete this task.");
         }
 
         try

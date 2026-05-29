@@ -6,11 +6,12 @@ using TaskManagement.Application.Repositories.Services;
 
 namespace TaskManagement.Application.Features.TaskItem.Commands.DeleteTask;
 
-public sealed class DeleteTaskCommandHandler(ITaskService _service) : IRequestHandler<DeleteTaskCommand, bool>
+public sealed class DeleteTaskCommandHandler(ITaskService _service, ICurrentUserService _currentUserService) : IRequestHandler<DeleteTaskCommand, bool>
 {
     public async Task<bool> Handle(DeleteTaskCommand request, CancellationToken cancellationToken)
     {
-        var result = await _service.DeleteTaskAsync(request.id, cancellationToken);
+        var currentUserId = _currentUserService.UserId;
+        var result = await _service.DeleteTaskAsync(request.id, currentUserId, cancellationToken);
         return result;
     }
 }
